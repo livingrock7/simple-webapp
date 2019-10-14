@@ -9,10 +9,4 @@ router.get("/", function(req,res){
     res.render("index");
 });
 
-
-router.post("/", function(req,res){
-    console.log(req.body.recipient);
-    res.render("index");
-});
-
 module.exports = router;

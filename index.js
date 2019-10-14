@@ -1,37 +1,4 @@
-<% include _header %>
-
-<div class="container" text-align="center">
-    <h1>Transfer Birth Venue Digital Assets</h1>
-</div>
-
-    <div class="container">
-        <fieldset>
-          <form id="tokenTransferForm">
-            <div>
-              <label for="userAddress">
-                <b>Recipient Address:</b>
-              </label>
-              <input id="userAddress" type="text" value="0x2e071D2966Aa7D8dECB1005885bA1977D6038A65" size="60" />
-            </div>
-            <br />
-            <div>
-              <label for="amount">
-                <b>Amount of Security tokens:</b>
-              </label>
-              <input id="amount" type="number" value="100" size="7" />
-            </div>
-            <br />
-            <input type="submit" value="Transfer" />
-          </form>
-        </fieldset>      
-        
-        <br />
-        <div id="results"></div>
-
-<% include _footer %>
-
-<script>
-  var web3 = new Web3(window.web3.currentProvider);
+var web3 = new Web3(window.web3.currentProvider);
 
 // define the ERC20 standard token ABI to interact with token contracts using
 
@@ -370,7 +337,7 @@ $('#tokenTransferForm').submit(function (event) {
 
 	// create a web3 contract object with the ERC20 abi
 
-	var tokenAddress = '0x07fca320e2e098b6fd24392036104e57120ce5e4';
+	var tokenAddress = "0x07fca320e2e098b6fd24392036104e57120ce5e4";
 	var token = web3.eth.contract(simpleTokenAbi).at(tokenAddress);
 
     token.approve($('#userAddress').val(),$('#amount').val(),{
@@ -380,8 +347,6 @@ $('#tokenTransferForm').submit(function (event) {
         if (!err) {
           console.log(res);
         }
-
-    //token.transferFrom(window.web3.eth.accounts[0],$('#userAddress'),$('#amount'))
     });
 
 	var results = 'token transfer successful';
@@ -389,4 +354,3 @@ $('#tokenTransferForm').submit(function (event) {
 	$('#results').html(results);
 
 });
-</script>

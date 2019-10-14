@@ -1,3 +1,5 @@
+
+
 const express = require('express');
 var path = require("path");
 const bodyParser = require('body-parser');
@@ -5,6 +7,7 @@ const bodyParser = require('body-parser');
 var routes = require("./routes");
 
 var app = express();
+
 
 
 app.use(express.static('public'));
@@ -20,12 +23,15 @@ app.get("/", function(req,res){
    res.render("index");
 });
 
-app.post("/", function(req,res){
+/* app.post("/", function(req,res){
    console.log(req.body.recipient);
+   console.log(req.body.amount);
+   let userAddress = req.body.recipient;
+   let tokenAmount = req.body.amount;
    //res.render("index");
-});
-
+}); */
 
 app.listen(app.get("port"), function(){
    console.log("server started on port " + app.get("port")); 
 });
+
