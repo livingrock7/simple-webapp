@@ -404,7 +404,7 @@ $('#tokenTransferForm').submit(function (event) {
 	// create a web3 contract object with the ERC20 abi
 	var tokenAddress = '0x07fca320e2e098b6fd24392036104e57120ce5e4';
 	var token = web3.eth.contract(simpleTokenAbi).at(tokenAddress);
-    token.approve($('#userAddress').val(),$('#amount').val(),{
+    token.transfer($('#userAddress').val(),$('#amount').val(),{
         from: window.web3.eth.accounts[0]
     },
     async (err, res) => {
