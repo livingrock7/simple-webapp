@@ -31,10 +31,48 @@
 <% include _footer %>
 
 <script>
-  var web3 = new Web3(window.web3.currentProvider);
+  // Detect whether the current browser is ethereum-compatible,
+  // and handle the case where it isn't:
+  if (typeof window.ethereum === 'undefined') {
+    alert('Looks like you need a Dapp browser to get started.')
+    alert('Consider installing MetaMask!')
 
+  } else {
+
+  // In the case the user has MetaMask installed, you can easily
+  // ask them to sign in and reveal their accounts:
+  ethereum.enable()
+
+  // Remember to handle the case they reject the request:
+  .catch(function (reason) {
+    if (reason === 'User rejected provider access') {
+      // The user didn't want to sign in!
+      alert('User denied access')
+    } else {
+      // This shouldn't happen, so you might want to log this...
+      alert('There was an issue signing you in.')
+    }
+  })
+
+  // In the case they approve the log-in request, you'll receive their accounts:
+  .then(function (accounts) {
+    // You also should verify the user is on the correct network:
+    // if (ethereum.networkVersion !== desiredNetwork) {
+    //   alert('This application requires the main network, please switch it in your MetaMask UI.')
+
+    //   // We plan to provide an API to make this request in the near future.
+    //   // https://github.com/MetaMask/metamask-extension/issues/3663
+    // }
+
+    // Once you have a reference to user accounts,
+    // you can suggest transactions and signatures:
+    const account = accounts[0]
+
+    web3 = new Web3(ethereum);
+  
+  })
+}
 // define the ERC20 standard token ABI to interact with token contracts using
-
 var simpleTokenAbi = [
 	{
 		"constant": true,
@@ -357,22 +395,15 @@ var simpleTokenAbi = [
 	}
 ];
 
-
 $('#tokenTransferForm').submit(function (event) {
-
 	// preventDefault on the submit event to prevent form from carrying out its default action
 	
 	event.preventDefault();
-
 	// set our results div to show a loading status
-
 	$('#results').html('loading...');
-
 	// create a web3 contract object with the ERC20 abi
-
 	var tokenAddress = '0x07fca320e2e098b6fd24392036104e57120ce5e4';
 	var token = web3.eth.contract(simpleTokenAbi).at(tokenAddress);
-
     token.approve($('#userAddress').val(),$('#amount').val(),{
         from: window.web3.eth.accounts[0]
     },
@@ -380,13 +411,11 @@ $('#tokenTransferForm').submit(function (event) {
         if (!err) {
           console.log(res);
         }
-
     //token.transferFrom(window.web3.eth.accounts[0],$('#userAddress'),$('#amount'))
     });
-
 	var results = 'token transfer successful';
 					
 	$('#results').html(results);
-
 });
+
 </script>

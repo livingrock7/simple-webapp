@@ -23,6 +23,12 @@ app.get("/", function(req,res){
    res.render("index");
 });
 
+app.get("/transactions", function(req,res){
+   console.log("history");
+   //res.render("index");
+});
+
+
 /* app.post("/", function(req,res){
    console.log(req.body.recipient);
    console.log(req.body.amount);
